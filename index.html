@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Rewards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --discord-blurple: #5865F2;
+            --discord-dark: #2C2F33;
+            --discord-darker: #23272A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B9BBBE;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--discord-darker);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background-color: var(--discord-dark);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo i {
+            font-size: 3rem;
+            color: var(--discord-blurple);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--discord-darker);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--discord-blurple);
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--discord-blurple);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #4752C4;
+        }
+
+        .error {
+            color: #ED4245;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <i class="fab fa-discord"></i>
+        </div>
+        <h1>Discord Rewards</h1>
+        <p>Enter your Discord ID to start earning rewards!</p>
+        
+        <form id="discordForm">
+            <div class="form-group">
+                <label for="discordId">Discord ID</label>
+                <input type="text" id="discordId" name="discordId" placeholder="e.g. 123456789012345678" required>
+                <div class="error" id="errorMessage"></div>
+            </div>
+            <button type="submit" id="submitButton">Continue</button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner"></i> Verifying your ID...
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('discordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const discordId = document.getElementById('discordId').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+            const submitButton = document.getElementById('submitButton');
+            
+            // Basic Discord ID validation (18 digits)
+            if (!/^\d{17,19}$/.test(discordId)) {
+                errorMessage.textContent = 'Please enter a valid Discord ID';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Show loading state
+            submitButton.style.display = 'none';
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            try {
+                // In a real implementation, you would verify the ID with your backend
+                // For now, we'll just redirect to the offer page
+                setTimeout(() => {
+                    window.location.href = `offer.html?discord_id=${discordId}`;
+                }, 1500);
+            } catch (error) {
+                errorMessage.textContent = 'An error occurred. Please try again.';
+                errorMessage.style.display = 'block';
+                submitButton.style.display = 'block';
+                loading.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

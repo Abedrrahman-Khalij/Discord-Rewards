@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Offer - Discord Rewards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --discord-blurple: #5865F2;
+            --discord-dark: #2C2F33;
+            --discord-darker: #23272A;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B9BBBE;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--discord-darker);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background-color: var(--discord-dark);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo i {
+            font-size: 3rem;
+            color: var(--discord-blurple);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        p {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .offer-card {
+            background-color: var(--discord-darker);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .offer-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .offer-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .offer-reward {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--discord-blurple);
+            font-weight: 500;
+        }
+
+        .offer-reward i {
+            font-size: 1.25rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--discord-blurple);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #4752C4;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .status.success {
+            background-color: rgba(67, 181, 129, 0.1);
+            color: #43B581;
+        }
+
+        .status.error {
+            background-color: rgba(240, 71, 71, 0.1);
+            color: #F04747;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <i class="fab fa-discord"></i>
+        </div>
+        <h1>Complete Offer</h1>
+        <p>Complete the offer below to receive your Discord reward!</p>
+        
+        <div class="offer-card">
+            <div class="offer-title">Complete Survey</div>
+            <div class="offer-description">
+                Complete a short survey to earn your reward. This should take about 2-3 minutes.
+            </div>
+            <div class="offer-reward">
+                <i class="fas fa-gift"></i>
+                <span>Reward:  1000 Points</span>
+            </div>
+        </div>
+        
+        <button id="offerButton">Start Offer</button>
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner"></i> Preparing your offer...
+        </div>
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        // Get Discord ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const discordId = urlParams.get('discord_id');
+        
+        if (!discordId) {
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('offerButton').addEventListener('click', () => {
+            const loading = document.getElementById('loading');
+            const offerButton = document.getElementById('offerButton');
+            const status = document.getElementById('status');
+            
+            // Show loading state
+            offerButton.style.display = 'none';
+            loading.style.display = 'block';
+            
+            // Simulate loading time
+            setTimeout(() => {
+                // Replace with your actual CPA offer URL
+                const cpaUrl = `https://your-cpa-network.com/offer?track=${discordId}`;
+                window.location.href = cpaUrl;
+            }, 1500);
+        });
+    </script>
+</body>
+</html> 
